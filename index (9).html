@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            z-index: -1;
+            animation: shine 6s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+        
+        .profile {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2a2a2a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500, #ffef00, #00ff00, #00ffff, #0000ff, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradientBorder 8s ease infinite;
+            padding: 4px;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        @keyframes gradientBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .username {
+            font-size: 24px;
+            font-weight: 600;
+            color: #e6e6e6;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bio {
+            color: #a0a0a0;
+            font-size: 14px;
+            margin-bottom: 25px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .social-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        
+        .icon-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 22px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #242424, #1e1e1e);
+            box-shadow: 5px 5px 10px #0c0c0c, -5px -5px 10px #282828;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .icon-item:hover::before {
+            left: 100%;
+        }
+        
+        .icon-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 15px #0a0a0a, -8px -8px 15px #2a2a2a;
+        }
+        
+        .icon-item:active {
+            transform: translateY(0);
+            box-shadow: inset 5px 5px 10px #0c0c0c, inset -5px -5px 10px #282828;
+        }
+        
+        .icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-item:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .icon-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #e6e6e6;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-item:hover .icon-name {
+            transform: translateX(5px);
+        }
+        
+        .youtube .icon {
+            background-color: #ff0000;
+            color: white;
+        }
+        
+        .github .icon {
+            background-color: #333;
+            color: white;
+        }
+        
+        .spotify .icon {
+            background-color: #1DB954;
+            color: white;
+        }
+        
+        .pinterest .icon {
+            background-color: #E60023;
+            color: white;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .footer {
+            margin-top: 25px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="profile">
+            <div class="profile-pic">
+                <!-- Placeholder for profile picture - replace with actual image URL -->
+                <img src="https://uploads.onecompiler.io/43am9xxy6/43w4sg79d/f5138c92fbeeaa3f7406c0bf187e750c_1.jpg" alt="Profile Picture">
+            </div>
+            <div class="username">@vinaaaayak_7</div>
+            <div class="bio">Content Creator • Developer • Music Lover • Creative Designer</div>
+        </div>
+        
+        <div class="social-icons">
+<a href="https://youtube.com/@aboutvinayak?feature=shared" target="_blank" class="icon-item youtube">
+    <div class="icon">
+        <i class="fab fa-youtube"></i>
+    </div>
+    <div class="icon-name">YouTube</div>
+</a>
+
+<a href="https://github.com/vinaaaaayak7" target="_blank" class="icon-item github">
+    <div class="icon">
+        <i class="fab fa-github"></i>
+    </div>
+    <div class="icon-name">GitHub</div>
+</a>
+
+<a href="https://open.spotify.com/user/31v2pyflmg7zxfaaw4hd346opjfe?si=3NrXzVEkQz-_m2SytZFWOw" target="_blank" class="icon-item spotify">
+    <div class="icon">
+        <i class="fab fa-spotify"></i>
+    </div>
+    <div class="icon-name">Spotify</div>
+</a>
+
+<a href="https://pin.it/pt4Yzf1Ng" target="_blank" class="icon-item pinterest">
+    <div class="icon">
+        <i class="fab fa-pinterest"></i>
+    </div>
+    <div class="icon-name">Pinterest</div>
+</a>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="footer">
+            Connect with me on social media
+        </div>
+    </div>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 30;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 5 and 30px
+                const size = Math.random() * 25 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation duration between 10 and 30s
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Add animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const items = document.querySelectorAll('.icon-item');
+            const profilePic = document.querySelector('.profile-pic');
+            const username = document.querySelector('.username');
+            const bio = document.querySelector('.bio');
+            
+            // Initial state for animations
+            profilePic.style.opacity = '0';
+            profilePic.style.transform = 'scale(0.8)';
+            username.style.opacity = '0';
+            username.style.transform = 'translateY(10px)';
+            bio.style.opacity = '0';
+            bio.style.transform = 'translateY(10px)';
+            
+            items.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(15px)';
+            });
+            
+            // Animate profile elements
+            setTimeout(() => {
+                profilePic.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                profilePic.style.opacity = '1';
+                profilePic.style.transform = 'scale(1)';
+                
+                username.style.transition = 'opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s';
+                username.style.opacity = '1';
+                username.style.transform = 'translateY(0)';
+                
+                bio.style.transition = 'opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s';
+                bio.style.opacity = '1';
+                bio.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animate social icons with staggered delay
+            setTimeout(() => {
+                items.forEach((item, index) => {
+                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    item.style.transitionDelay = `${0.2 * index}s`;
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                });
+            }, 800);
+        });
+    </script>
+</body>
+</html>
